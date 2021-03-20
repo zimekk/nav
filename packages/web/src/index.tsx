@@ -42,8 +42,8 @@ const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 store.dispatch(locationHash(history.location.hash));
 
-const unlisten = history.listen(({ location, action }) => {
-  console.log({ action });
+const unlisten = history.listen(({ location, action, ...rest }) => {
+  console.log({ action, location, rest });
   // location is an object like window.location
   store.dispatch(locationHash(location.hash));
 });
