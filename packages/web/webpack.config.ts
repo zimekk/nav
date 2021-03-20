@@ -8,10 +8,12 @@ env.config({ path: path.resolve(__dirname, "../../.env") });
 const dev = process.env.NODE_ENV === "development";
 
 const config: webpack.Configuration = {
+  target: "web",
   devServer: {
     port: 8080,
   },
-  entry: require.resolve("./src"),
+  devtool: dev && "inline-source-map",
+  entry: ["react-hot-loader/patch"].concat(require.resolve("./src")),
   module: {
     rules: [
       {
@@ -20,17 +22,23 @@ const config: webpack.Configuration = {
         exclude: /node_modules/,
         options: {
           presets: ["@babel/preset-react", "@babel/preset-typescript"],
+          plugins: ["react-hot-loader/babel"],
         },
       },
     ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      "react-dom": "@hot-loader/react-dom",
+    },
   },
   output: {
     path: path.resolve(__dirname, "public"),
+    clean: true,
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin(["NODE_ENV"]),
     new HtmlWebpackPlugin(),
   ],

@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "serve": "node lib",
-    "start": "nodemon lib.ts"
+    "start": "NODE_ENV=development nodemon lib.ts"
   },
   "dependencies": {
     "@dev/web": "1.0.0",

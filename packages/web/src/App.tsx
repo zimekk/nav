@@ -1,3 +1,4 @@
+import { hot } from "react-hot-loader/root";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { historyBack, historyPush, increment } from "./actions";
@@ -16,7 +17,7 @@ const A = ({ ...props }) => {
   );
 };
 
-export default () => {
+function App() {
   const counter = useSelector(({ counter }: { counter: number }) => counter);
   const dispatch = useDispatch();
 
@@ -51,4 +52,6 @@ export default () => {
       </pre>
     </div>
   );
-};
+}
+
+export default hot(App);

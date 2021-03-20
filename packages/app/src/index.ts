@@ -3,23 +3,20 @@ import path from "path";
 
 const web =
   process.env.NODE_ENV === "development"
-    ? ((config) => {
-        const compiler = require("webpack")({ mode: "development", ...config });
+    ? (({ entry, ...config }) => {
+        const compiler = require("webpack")({
+          mode: "development",
+          entry: ["webpack-hot-middleware/client"].concat(entry),
+          ...config,
+        });
+
         return Router()
           .use(
             require("webpack-dev-middleware")(compiler, {
-              // mode: 'development'
-              // webpack-dev-middleware options
               publicPath: config.output?.publicPath,
             })
           )
-          .use(
-            require(`webpack-hot-middleware`)(compiler, {
-              log: false,
-              path: `/__webpack_hmr`,
-              heartbeat: 10 * 1000,
-            })
-          );
+          .use(require(`webpack-hot-middleware`)(compiler, {}));
       })(require("@dev/web/webpack.config").default)
     : Router().use(
         express.static(
