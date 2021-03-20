@@ -26,11 +26,11 @@
   ],
   "devDependencies": {
     "husky": "^4.3.7",
-    "lerna": "^3.22.1",
+    "lerna": "^4.0.0",
     "prettier": "^2.2.0",
     "pretty-quick": "^3.1.0"
   },
   "dependencies": {
-    "type-coverage": "^2.14.8"
+    "type-coverage": "^2.17.0"
   }
 }
