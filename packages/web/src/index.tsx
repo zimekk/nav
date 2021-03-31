@@ -5,7 +5,6 @@ import { applyMiddleware, createStore } from "redux";
 import { handleActions } from "redux-actions";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-
 import {
   history,
   increment,
@@ -14,8 +13,11 @@ import {
   navigatePath,
   back,
 } from "./actions";
+import { delay } from "./utils";
 
-const App = lazy(() => import("./App"));
+const App = lazy(() =>
+  Promise.all([import("./App"), delay()]).then(([d]) => d)
+);
 
 const Spinner = () => <span>Loading...</span>;
 
@@ -33,7 +35,7 @@ const reducer = handleActions(
   ]),
   {
     counter: 1,
-    current: "/",
+    current: "",
     history: [],
   }
 );

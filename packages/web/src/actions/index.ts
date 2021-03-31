@@ -24,7 +24,7 @@ export const { increment, navigate, navigatePath } = createActions({
 });
 
 export const locationHash = (locationHash) => (dispatch) => {
-  const [path, hash = "/"] = decodeURI(locationHash).match(/^#(.+)/) || [];
+  const [path, hash = "page1"] = decodeURI(locationHash).match(/^#(.+)/) || [];
   console.log(["LOCATION_HASH"], path, hash);
   dispatch(navigatePath(hash));
 };
